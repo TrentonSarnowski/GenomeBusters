@@ -1,0 +1,26 @@
+exports[`test renders without crashing 1`] = `
+<div
+  className="App-cell App-select">
+  <div
+    className="DropdownMenu-label"
+    onClick={[Function]}>
+    Select
+  </div>
+  <div
+    className="DropdownMenu-select-menu hidden">
+    <img
+      role="presentation"
+      src="/triangle.svg" />
+    <ul>
+      <li
+        onClick={[Function]}>
+        test 1
+      </li>
+      <li
+        onClick={[Function]}>
+        test 2
+      </li>
+    </ul>
+  </div>
+</div>
+`;

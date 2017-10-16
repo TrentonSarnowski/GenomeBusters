@@ -1,0 +1,41 @@
+{
+  "sequence": {
+    "features_found": 3,
+    "sequence_length": 4000,
+    "features": [
+      {
+        "id": 1,
+        "protein_id": "BAB33424.1",
+        "label": "ECs0001",
+        "start": 189,
+        "end": 273,
+        "strand": 1,
+        "metadata": [
+          "similar to THRL_ECOLI gi|1786182 percent similarity 100 in 21 aa, but has 6 additional residues (Conserved in E.coli K-12)"
+        ]
+      },
+      {
+        "id": 2,
+        "protein_id": "BAB33425.1",
+        "label": "ECs0002",
+        "start": 353,
+        "end": 2816,
+        "strand": 1,
+        "metadata": [
+          "similar to THRA_ECOLI gi|1786183 percent identity 99 in 820 aa (Conserved in E.coli K-12)"
+        ]
+      },
+      {
+        "id": 3,
+        "protein_id": "BAB33426.1",
+        "label": "ECs0003",
+        "start": 2817,
+        "end": 3750,
+        "strand": 1,
+        "metadata": [
+          "similar to THRB_ECOLI gi|1786184 percent identity 99 in 310 aa (Conserved in E.coli K-12)"
+        ]
+      }
+    ]
+  }
+}

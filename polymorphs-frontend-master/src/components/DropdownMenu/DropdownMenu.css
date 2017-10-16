@@ -1,0 +1,40 @@
+.DropdownMenu-label {
+}
+
+.DropdownMenu-select-menu {
+  color: var(--lightest-color);
+  background-color: var(--darkest-color);
+  text-align: left;
+  position: relative;
+  top: 15px;
+  left: -175px;
+  width: 260px;
+}
+
+.DropdownMenu-select-menu img {
+  position: absolute;
+  right: 0px;
+  top: -15px;
+}
+
+.DropdownMenu-select-menu ul {
+  margin-top: 5px;
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.DropdownMenu-select-menu ul li {
+  padding-left: 20px;
+  cursor: default;
+}
+.DropdownMenu-select-menu ul li:hover{
+  background-color: #3f3f3f;
+}
+
+.DropdownMenu-select-menu.show {
+  visibility: show;
+}
+
+.DropdownMenu-select-menu.hidden {
+  visibility: hidden;
+}

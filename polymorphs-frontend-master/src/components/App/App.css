@@ -1,0 +1,105 @@
+:root { /*psuedo element. only loaded in the css*/
+  --light-color: #FAFAFA;
+  --lightest-color: #FFFFFF;
+  --darkest-color: #333333;
+}
+
+#root {
+  height: 100%;
+  overflow: none;
+}
+
+#mapZoom {
+}
+
+.App { /* . = class */
+  background-color: var(--lightest-color);
+  height: 100%;
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+/*padding includes the div */
+.App-header {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  font-family: "Arial";
+  font-weight: 400;
+}
+
+.App-cell {
+  height: 44px;
+  color: var(--lightest-color);
+  background-color: var(--darkest-color);
+  text-align: left;
+  margin: 8px; /*up right down left*/
+  line-height: 44px;
+  padding-left: 18px;
+}
+
+/*.App-upload {
+  flex-basis: 73px;
+  width: 73px;
+}*/
+
+input[type="file"]::-webkit-file-upload-button {
+  position: relative;
+  top: -2.5px;
+  left: -6px;
+}
+
+::-webkit-input-placeholder {
+ color: #BBB!important;
+}
+
+.App-file-upload-button {
+  width: 200px;
+  border-radius: 0px;
+}
+
+.App-file-upload-button .App-upload-button {
+  position: relative;
+  top: 9px;
+  border: 1px solid black;
+  padding: 12px 40px 12px 15px;
+  background-color: var(--darkest-color);
+	color: white;
+	left: 40px;
+
+  z-index: 3;
+}
+
+.App-file-upload-button input[type='file'] {
+  position: relative;
+  left: 35px;
+  top: -12px;
+	outline: none;
+  z-index: 1;
+  opacity: 1;
+  width: 100px;
+}
+.App-file-upload-button input[type="file"]::-webkit-file-upload-button {
+  opacity: 0;
+}
+
+
+.App-select {
+  cursor: pointer;
+  flex-basis: 86px;
+  margin: 8px 30px 8px 8px; /*up right down left*/
+  width: 86px;
+  z-index: 3;
+}
+
+.App-header-fill {
+  flex: 1 auto;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

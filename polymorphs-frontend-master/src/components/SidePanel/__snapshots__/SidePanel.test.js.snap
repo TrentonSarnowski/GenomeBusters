@@ -1,0 +1,28 @@
+exports[`test Link renders correctly 1`] = `
+<div
+  className="SidePanel">
+  <div
+    className="SidePanel-mainBox show">
+    <div
+      className="SidePanel-mainBox SidePanel-cell">
+      bob
+    </div>
+  </div>
+  <div
+    className="SidePanel-collapseBox open">
+    <div
+      className="SidePanel-collapseBox SidePanel-cell"
+      onClick={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}>
+      +
+    </div>
+  </div>
+  <div
+    className="SidePanel-hovBox nohover open">
+    <span>
+      Collapse Side Panel
+    </span>
+  </div>
+</div>
+`;

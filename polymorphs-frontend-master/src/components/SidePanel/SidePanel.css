@@ -1,0 +1,140 @@
+.SidePanel {
+  background-color: var(--lightest-color);
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  text-align: center;
+  top: 0px;
+  width: 272px;
+  z-index: 3;
+}
+/*box shadow*/
+
+.SidePanel-cell{
+  color: var(--lightest-color);
+  background-color: var(--darkest-color);
+  /*box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.5);*/
+}
+
+.SidePanel-collapseBox {
+  -webkit-transition: margin-left 0.2s;
+  transition: margin-left 0.2s;
+  width: 15px;
+  height: 30px;
+  margin-top: -50px;
+  text-align: center;
+  line-height: 26px;
+  box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.35);
+}
+
+.SidePanel-collapseBox.open {
+  margin-left: 290px;
+}
+
+.SidePanel-collapseBox.closed {
+  margin-left: 0px;
+}
+
+.SidePanel-mainBox {
+  -webkit-transition: left 0.2s;
+  transition: left 0.2s;
+  text-align: left;
+  margin: 0px; /*up right down left*/
+  line-height: 44px;
+  width: 272px;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  /*box-shadow: 0px 0px 3px 4px rgba(0, 2, 4, .5);*/
+  /*box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);*/
+  /*box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);*/
+  
+}
+
+.SidePanel-mainBox.show {
+	/*visibility: show;*/
+	box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.SidePanel-mainBox.hidden {
+	left: -290px;
+	box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+	/*visibility: hidden;*/
+}
+
+.SidePanel-hovBox{
+  position: relative;
+  background-color: var(--lightest-color);
+  color: var(--darkest-color);
+  text-align: center;
+  height: 22px;
+  line-height: 22px;
+  width: 132px; /*put the size in units of REM?*/
+  margin-top: -28px;
+  border-style: solid;
+  border-radius: 4px;
+  box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.2);
+  font-size: .81rem;
+  /*white with black border and shadow
+	RATIO OF REM. 
+  */
+}
+
+.SidePanel-hovBox::before{
+  content:"";
+  position: absolute;
+  right: 100%;
+  top: 26px;
+  width: 0;
+  height: 0;	
+  border-top: 6px solid transparent;
+  border-right: 10px solid var(--darkest-color);
+  border-bottom: 6px solid transparent;
+  margin-top: -21px;
+  display: block;
+
+}
+
+.SidePanel-top {
+  height: 20%;
+  padding-left: 20px;
+}
+
+.SidePanel-mainBox-scroll {
+  height: 540px;
+  margin-top: 30px;
+  overflow: auto;
+  padding-left: 20px;
+}
+
+.SidePanel-mainBox-scroll ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+
+.SidePanel-mainBox-scroll ul li {
+  padding-left: 5px;
+}
+
+.SidePanel-mainBox-scroll ul li:hover {
+  background-color: #4E4E4E; 
+}
+
+.SidePanel-hovBox.yeshover{
+	visibility: show;
+}
+
+.SidePanel-hovBox.nohover{
+	visibility: hidden;
+}
+
+.SidePanel-hovBox.open{
+  margin-left: 320px;
+}
+
+.SidePanel-hovBox.closed{
+  margin-left: 30px;
+}
