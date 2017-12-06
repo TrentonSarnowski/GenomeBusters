@@ -48,6 +48,8 @@ class App extends Component {
       "filename": e.target.files[0].name,
     });
 
+    //this.update_genbank_data(this);
+
     fetch('http://localhost:8080', {
       method: 'POST',
       body: data

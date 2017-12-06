@@ -19,6 +19,7 @@ class Chart extends Component {
 
 	componentDidUpdate() {
 		const el = ReactDOM.findDOMNode(this);
+		console.log(d3Chart);
 		d3Chart.update(el, this.getChartState());
 	}
 
