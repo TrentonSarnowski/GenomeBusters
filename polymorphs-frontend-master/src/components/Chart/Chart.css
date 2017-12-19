@@ -5,8 +5,7 @@
   z-index: 2;
 }
 
-
 .Chart svg {
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
