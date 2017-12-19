@@ -1,0 +1,45 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",
+            "command": "g++", // change this name to something else if you'd like
+            "args": [
+                "-Wall",
+                "-o main.out",
+                "${workspaceRoot}/webserver/main.cpp",     // change this to the name of the file you are choosing to compile and run, this is the only thing you will need to change
+                "-std=c++11",  // Tag to compile as c++11
+                // "&&",
+                // "./main.out"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "zsh"
+                }
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}/webserver"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        }
+    ]
+}
