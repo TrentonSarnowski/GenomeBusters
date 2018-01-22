@@ -17,11 +17,11 @@ class App extends Component {
     };
 
     this.fetch_data = this.fetch_data.bind(this);
-    this.fetch_preset_data = this.fetch_preset_data.bind(this);
-    this.fetch_presets = this.fetch_presets.bind(this);
+    // this.fetch_preset_data = this.fetch_preset_data.bind(this); // No preset data currently exists to fetch
+    // this.fetch_presets = this.fetch_presets.bind(this);
     this.update_genbank_data = this.update_genbank_data.bind(this);
 
-    this.fetch_presets();
+    // this.fetch_presets();
   }
   // 1}}} //
 
@@ -48,7 +48,7 @@ class App extends Component {
       "filename": e.target.files[0].name,
     });
 
-    fetch('http://localhost:8080', {
+    fetch('http://localhost:8080/api/gene_search', {
       method: 'POST',
       body: data
     }).then(this.update_genbank_data.bind(this));
