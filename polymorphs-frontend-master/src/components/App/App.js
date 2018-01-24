@@ -5,6 +5,9 @@ import SidePanel from '../SidePanel/SidePanel';
 import Chart from '../Chart/Chart';
 import 'whatwg-fetch';
 import ReactDOM from 'react-dom';
+import configuration from '../../config';
+
+const port = ':8080'
 
 class App extends Component {
   // constructor {{{1 //
@@ -48,14 +51,14 @@ class App extends Component {
       "filename": e.target.files[0].name,
     });
 
-    fetch('http://localhost:8080/api/gene_search', {
+    fetch(configuration.address + '/api/gene_search', {
       method: 'POST',
       body: data
     }).then(this.update_genbank_data.bind(this));
   }
 
   fetch_presets() {
-    fetch('http://localhost:8080', {
+    fetch(configuration.address, {
       method: 'GET',
     }).then(function(response) {
       response.json().then(function(preset_results) {
@@ -69,7 +72,7 @@ class App extends Component {
       "isLoading": true,
       "filename": name
     });
-    fetch('http://localhost:8080/preset/' + id, {
+    fetch(configuration.address + '/preset/' + id, {
       method: 'POST'
     }).then(this.update_genbank_data.bind(this));
   }
