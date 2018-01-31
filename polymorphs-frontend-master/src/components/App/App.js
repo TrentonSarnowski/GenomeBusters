@@ -7,8 +7,6 @@ import 'whatwg-fetch';
 import ReactDOM from 'react-dom';
 import configuration from '../../config';
 
-const port = ':8080'
-
 class App extends Component {
   // constructor {{{1 //
   static config= new configuration();
