@@ -11,6 +11,7 @@ const port = ':8080'
 
 class App extends Component {
   // constructor {{{1 //
+  static config= new configuration();
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +52,7 @@ class App extends Component {
       "filename": e.target.files[0].name,
     });
 
-    fetch(configuration.address + '/api/gene_search', {
+    fetch("http://"+configuration.address + '/api/gene_search', {
       method: 'POST',
       body: data
     }).then(this.update_genbank_data.bind(this));
