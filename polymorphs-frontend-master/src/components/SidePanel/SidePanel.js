@@ -13,6 +13,7 @@ class SidePanel extends Component {
     this.activateHover = this.activateHover.bind(this);
     this.deactivateHover = this.deactivateHover.bind(this);
     this.gethovBoxPrompt = this.getHovBoxPrompt.bind(this);
+    this.state.clicked = function(event) {props.toggleSwitch()}.bind(this)
     /*this.select = this.select.bind(this);*/
   }
 
@@ -33,11 +34,16 @@ class SidePanel extends Component {
     }
   }
 
+  //  <a href="#" onClick={this.state.clicked}>View Other Genome gene list</a>
   render() {
     return (
       <div className="SidePanel">
       	<div className={`SidePanel-mainBox ${this.state.menuActive ? 'show' : 'hidden'}`}>
-        	<div className="SidePanel-mainBox SidePanel-cell">
+          <div className="SidePanel-mainBox SidePanel-cell">
+            <label className="App-file-upload-button">
+              <span className="App-cell App-upload-button">Switch Genome</span>
+              <button onClick={this.state.clicked}/>
+            </label>
             <div className="SidePanel-top">
               { this.props.filename? <h4>Viewing Genome: {this.props.filename}</h4> : <h4>Upload a file to start</h4> }
               { !this.props.gb_data && this.props.filename || this.props.isLoading ? <div>Loading...</div> : <div></div> }

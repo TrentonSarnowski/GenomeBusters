@@ -11,82 +11,88 @@ class d3Chart {
     this.update(el, state);
   }
 
+  static UpdateOnZoom(state, target, type, transform, el, svg) {
+    if (!d3 || !d3.event || !d3.event.transform) {
+      return;
+    }
+
+    //////////////////
+    //components
+    //  features - Array
+    //  features_found - number
+    //  sequence_length - number
+    /////////////////
+
+    let className="standard";
+    if (d3.event && d3.event.transform.k > 5) {
+      className="detailed";
+
+      if (svg.selectAll(".standard")._groups[0].length > 0) {
+        svg.selectAll(".standard").remove();
+      }
+    } else if (svg.selectAll(".detailed")._groups[0].length > 0) {
+      svg.selectAll(".detailed").remove();
+    }
+
+    let color = d3.scaleOrdinal().range(["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC"]);
+
+    let pie = d3.pie().sort(null).value(function(feature) {
+      return feature.end - feature.start;
+    });
+
+    let widthCenter = el.clientWidth / 2 + 850*3.3;
+    let heightCenter = el.clientHeight / 2 + 850;
+    let scaleFactor = 3.3;
+
+
+    let arc = d3.arc()
+      .innerRadius(state.inner_radius)
+      .outerRadius(state.outer_radius);
+
+    let labelArc = d3.arc()
+      .innerRadius(state.inner_radius)
+      .outerRadius(state.outer_radius);
+
+    let g = svg.selectAll(".arc")
+      .data(pie(this.data.sequence.features))
+      .enter().append("g")
+      .attr("class", "arc " + className);
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) {
+        return color(d.index % 13);
+      });
+
+    if (d3.event && d3.event.transform.k > 5) {
+      let gText = svg.selectAll(".arcText")
+        .data(this.data.sequence.features)
+        .enter().append("text")
+        .attr("class", "arcText")
+        .append("textPath")
+        .attr("xlink:href", function(d, i) {return "#arcLabel_"+i})
+        .text(function(d) {return d.label});
+    }
+
+    g.attr("transform", "translate(" + widthCenter + ", " + heightCenter + ")scale(" + scaleFactor + ","  + scaleFactor + ")");
+
+    svg.attr("transform", d3.event.transform)
+  }
+
+
   // Re-compute the scales, and render the data points
   static update(el, state) {
     if (!state || !state.data || !state.data.sequence) {
       return;
     }
+    el.innerHTML="";
     let svg = d3.select(el)
       .append('svg')
-      .attr('width', "100%")
-      .attr('height', "100%")
-      .call(d3.zoom().on("zoom", function (target, type, transform, sourceEvent) {
-        if (!d3 || !d3.event || !d3.event.transform) {
-          return;
-        }
-
-        //////////////////
-        //components
-        //  features - Array
-        //  features_found - number
-        //  sequence_length - number
-        /////////////////
-
-        let className="standard";
-        if (d3.event && d3.event.transform.k > 5) {
-          className="detailed";
-
-          if (svg.selectAll(".standard")._groups[0].length > 0) {
-            svg.selectAll(".standard").remove();
-          }
-        } else if (svg.selectAll(".detailed")._groups[0].length > 0) {
-          svg.selectAll(".detailed").remove();
-        }
-
-        let color = d3.scaleOrdinal().range(["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC"]);
-
-        let pie = d3.pie().sort(null).value(function(feature) {
-          return feature.end - feature.start;
-        });
-
-        let widthCenter = el.clientWidth / 2 + 850*3.3;
-        let heightCenter = el.clientHeight / 2 + 850;
-        let scaleFactor = 3.3;
-
-
-        let arc = d3.arc()
-          .innerRadius(state.inner_radius)
-          .outerRadius(state.outer_radius);
-
-        let labelArc = d3.arc()
-          .innerRadius(state.inner_radius)
-          .outerRadius(state.outer_radius);
-
-        let g = svg.selectAll(".arc")
-          .data(pie(this.data.sequence.features))
-          .enter().append("g")
-          .attr("class", "arc " + className);
-
-        g.append("path")
-          .attr("d", arc)
-          .style("fill", function(d) {
-            return color(d.index % 13);
-          });
-
-        if (d3.event && d3.event.transform.k > 5) {
-          let gText = svg.selectAll(".arcText")
-            .data(this.data.sequence.features)
-            .enter().append("text")
-            .attr("class", "arcText")
-            .append("textPath")
-            .attr("xlink:href", function(d, i) {return "#arcLabel_"+i})
-            .text(function(d) {return d.label});
-        }
-
-        g.attr("transform", "translate(" + widthCenter + ", " + heightCenter + ")scale(" + scaleFactor + ","  + scaleFactor + ")");
-
-        svg.attr("transform", d3.event.transform)
-      }.bind(state))).append('g');
+      // .attr('width', "100%")
+      // .attr('height', "100%")
+      .call(d3.zoom().on("zoom", function(target, type, transform) {
+        this.UpdateOnZoom.bind(state)(state, target, type, transform, el, svg);
+      }.bind(this) )).append('g');
 
 
     const initial_features = [{start: 0, end: 5000, label: "Zoom in to see more"}];

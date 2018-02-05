@@ -25,8 +25,8 @@ class Chart extends Component {
 	getChartState() {
 		return {
 			data: this.props.data,
-      outer_radius: 1000,
-      inner_radius: 950
+			outer_radius: 1000,
+			inner_radius: 950
 		};
 	}
 

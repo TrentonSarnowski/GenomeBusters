@@ -18,10 +18,18 @@ class App extends Component {
       isLoading: false
     };
 
+
+    this.state.visibleBar = true;
     this.fetch_data = this.fetch_data.bind(this);
     // this.fetch_preset_data = this.fetch_preset_data.bind(this); // No preset data currently exists to fetch
     // this.fetch_presets = this.fetch_presets.bind(this);
     this.update_genbank_data = this.update_genbank_data.bind(this);
+
+    this.state.toggleVisibleSidebar = function() {
+      this.setState({
+        visibleBar: !this.state.visibleBar
+      })
+    }.bind(this)
 
     // this.fetch_presets();
   }
@@ -34,10 +42,18 @@ class App extends Component {
 
   update_genbank_data(response) {
     response.json().then(function(data_results) {
-      if (data_results.sequence.filename) {
-        this.setState({filename: data_results.sequence.filename});
+      if (this.state.gb_data_outer === undefined || this.state.gb_data_outer === null) {
+        if (data_results.sequence.filename) {
+          this.setState({filename_outer: data_results.sequence.filename});
+        }
+        this.setState({ gb_data_outer: data_results, isLoading: false });
+      } 
+      else {
+        if (data_results.sequence.filename) {
+          this.setState({filename_inner: data_results.sequence.filename});
+        }
+        this.setState({ gb_data_inner: data_results, isLoading: false });
       }
-      this.setState({ gb_data: data_results, isLoading: false });
     }.bind(this));
   }
 
@@ -88,9 +104,18 @@ class App extends Component {
           </label>
           <DropdownMenu fetch_preset_function={this.fetch_preset_data} presets={this.state.presets} />
         </div>
-
-        <SidePanel isLoading={ this.state.isLoading } filename={ this.state.filename } gb_data={ this.state.gb_data } />
-        <Chart data={this.state.gb_data} />
+        <div className="leftPanel" style={this.state.visibleBar ? {display:'block'} : {display: 'none'}}>
+          <SidePanel isLoading={ this.state.isLoading } filename={ this.state.filename_outer } gb_data={ this.state.gb_data_outer } toggleSwitch={this.state.toggleVisibleSidebar}/>
+        </div>
+        <div className="rightPanel" style={!this.state.visibleBar ? {display:'block'} : {display: 'none'}}>
+          <SidePanel isLoading={ this.state.isLoading } filename={ this.state.filename_inner } gb_data={ this.state.gb_data_inner } toggleSwitch={this.state.toggleVisibleSidebar}/>
+        </div>
+        <div className="left">
+          <Chart data={this.state.gb_data_outer}/>
+        </div>
+        <div className="right">
+          <Chart data={this.state.gb_data_inner}/>
+        </div>
       </div>
     );
   }
