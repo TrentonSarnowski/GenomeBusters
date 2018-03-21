@@ -1,21 +1,75 @@
 import * as d3 from "d3";
 import _ from "underscore";
 
+var setColor = function() {
+    let color = d3.scaleQuantize()
+        .domain([0,25]).range(
+        [ "#CCCCCC",//0
+            "#BBBBCC",//1
+            "#AAAACC",//2
+            "#9999CC",//3
+            "#8888CC",//4
+            "#7777CC",//5
+            "#6666CC",//6
+            "#5555CC",//7
+            "#4444CC",//8
+            "#3333CC",//9
+            "#2222CC",//10
+            "#1111CC",//11
+            "#0000CC",//12
+            "#CCCCCC",//13
+            "#BBCCBB",//14
+            "#AACCAA",//15
+            "#99CC99",//16
+            "#88CC88",//17
+            "#77CC77",//18
+            "#66CC66",//19
+            "#55CC55",//20
+            "#44CC44",//21
+            "#33CC33",//22
+            "#22CC22",//23
+            "#11CC11",//24
+            "#00CC00"]);
+  return color;
+};
+var color = [ "#CCCCCC",//0
+    "#BBBBCC",//1
+    "#AAAACC",//2
+    "#9999CC",//3
+    "#8888CC",//4
+    "#7777CC",//5
+    "#6666CC",//6
+    "#5555CC",//7
+    "#4444CC",//8
+    "#3333CC",//9
+    "#2222CC",//10
+    "#1111CC",//11
+    "#0000CC",//12
+    "#CCCCCC",//13
+    "#BBCCBB",//14
+    "#AACCAA",//15
+    "#99CC99",//16
+    "#88CC88",//17
+    "#77CC77",//18
+    "#66CC66",//19
+    "#55CC55",//20
+    "#44CC44",//21
+    "#33CC33",//22
+    "#22CC22",//23
+    "#11CC11",//24
+    "#00CC00"];
 class d3Chart {
   static create(el, props, state) {
     // todo - get the gene information out of the props
     // todo - randomize colors
     // todo - create with genes + colors + sequence id
-
     //let values = [10, 70, 20];
     this.update(el, state);
   }
-
   static UpdateOnZoom(state, target, type, transform, el, svg) {
     if (!d3 || !d3.event || !d3.event.transform) {
       return;
     }
-
     //////////////////
     //components
     //  features - Array
@@ -34,7 +88,9 @@ class d3Chart {
       svg.selectAll(".detailed").remove();
     }
 
-    let color = d3.scaleOrdinal().range(["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC"]);
+
+    var color = setColor();
+
 
     let pie = d3.pie().sort(null).value(function(feature) {
       return feature.end - feature.start;
@@ -61,7 +117,19 @@ class d3Chart {
     g.append("path")
       .attr("d", arc)
       .style("fill", function(d) {
-        return color(d.index % 13);
+        //return //setColor(d.data.inOther,true)
+          if(d.data.inOther!=undefined) {
+              //console.log(((d.index % 13) + d.data.inOther * 13))
+              console.log("fill")
+              console.log(d.data.inOther)
+              console.log(((d.index % 13) + (d.data.inOther * 13)))
+              console.log(color(((d.index % 13) + (d.data.inOther * 13))))
+              let blah = ((d.index % 13) + (d.data.inOther * 13));
+              return color(blah);
+          }else{
+              return color(d.index % 13);
+
+          }
       });
 
     if (d3.event && d3.event.transform.k > 5) {
@@ -78,6 +146,9 @@ class d3Chart {
 
     svg.attr("transform", d3.event.transform)
   }
+
+
+
 
 
   // Re-compute the scales, and render the data points
@@ -101,8 +172,7 @@ class d3Chart {
     //  features - Array
     //  features_found - number
     //  sequence_length - number
-    let color = d3.scaleOrdinal().range(["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC"]);
-
+    let color = setColor()
     let pie = d3.pie().sort(null).value(function(d) {
       return initial_features.end - initial_features.start;
     });
@@ -127,7 +197,20 @@ class d3Chart {
 
     g.append("path")
       .attr("d", arc)
-      .style("fill", function(d) { return color(d.data % 13); });
+      .style("fill", function(d) {
+
+              if (d.data.inOther != undefined) {
+                  console.log("path")
+                  console.log(d.data.inOther)
+                  console.log(((d.index % 13) + (d.data.inOther * 13)))
+                  console.log(color(((d.index % 13) + (d.data.inOther * 13))))
+                  let blah = ((d.index % 13) + (d.data.inOther * 13));
+                  return color(blah);
+              } else {
+                  return color(d.index % 13);
+              }
+          }
+              );
 
     let gText = svg.selectAll(".arcText")
       .data(initial_features)

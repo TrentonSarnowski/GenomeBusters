@@ -53,8 +53,35 @@ class App extends Component {
           this.setState({filename_inner: data_results.sequence.filename});
         }
         this.setState({ gb_data_inner: data_results, isLoading: false });
+        for( let feature of this.state.gb_data_outer.sequence.features){
+              feature.inOther = false
+              for (let value of this.state.gb_data_inner.sequence.features) {
+                let val = true
+
+                if (value.sequence.length === feature.sequence.length) {
+                  breakpoint: for (let i=0; i < value.sequence.length; i++){
+                    if(value.sequence[i]!=feature.sequence[i]){
+
+                      val = false
+                      break breakpoint
+                    }
+                  }
+
+                }else{
+                  val = false;
+                }
+                if(feature.inOther!=true) {
+                  feature.inOther = val;
+                }
+                if(value.inOther!=true) {
+                  value.inOther = val;
+                }
+
+              }
+            }
+
       }
-    }.bind(this));
+    }.bind(this))
   }
 
   fetch_data(e) {
