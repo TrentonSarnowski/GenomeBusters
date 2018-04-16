@@ -33,7 +33,7 @@ class DropdownMenu extends Component {
             {this.props.presets.map(function(genome) {
               return <li onClick={() => this.select(genome.id)} key={genome.id}>{genome.name}</li>
             }, this)}
-          </ul> 
+          </ul>
         </div>
       </div>
     );

@@ -8,7 +8,6 @@ class SidePanel extends Component {
     	menuActive: true,
     	hoverActive: false,
     }
-
     this.toggleMenu = this.toggleMenu.bind(this);
     this.activateHover = this.activateHover.bind(this);
     this.deactivateHover = this.deactivateHover.bind(this);
@@ -45,10 +44,10 @@ class SidePanel extends Component {
               <button onClick={this.state.clicked}/>
             </label>
             <div className="SidePanel-top">
-              { this.props.filename? <h4>Viewing Genome: {this.props.filename}</h4> : <h4>Upload a file to start</h4> }
+              { this.props.filename? <h4>Viewing {this.props.side} Genome: {this.props.filename}</h4> : <h4>Upload a file to start</h4> }
               { !this.props.gb_data && this.props.filename || this.props.isLoading ? <div>Loading...</div> : <div></div> }
-              { this.props.gb_data && !this.props.isLoading? <div>Features found: {this.props.gb_data.sequence.features_found}</div> : <div></div> }
-              { this.props.gb_data && !this.props.isLoading? <div>Sequence Length: {this.props.gb_data.sequence.sequence_length}</div> : <div></div> }
+              { this.props.gb_data && !this.props.isLoading? <div>Genes found: {this.props.gb_data.sequence.features_found}</div> : <div></div> }
+              { this.props.gb_data && !this.props.isLoading? <div>Sequence Length: {this.props.gb_data.sequence.sequence_length} bp</div> : <div></div> }
             </div>
             <div className="SidePanel-mainBox-scroll">
               <ul>

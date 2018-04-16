@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import DropdownMenu from '../DropdownMenu/DropdownMenu';
 import SidePanel from '../SidePanel/SidePanel';
 import Chart from '../Chart/Chart';
 import 'whatwg-fetch';
@@ -9,7 +8,7 @@ import configuration from '../../config';
 
 class App extends Component {
   // constructor {{{1 //
-  static config= new configuration();
+  static config = new configuration();
   constructor(props) {
     super(props);
     this.state = {
@@ -42,43 +41,75 @@ class App extends Component {
 
   update_genbank_data(response) {
     response.json().then(function(data_results) {
-      if (this.state.gb_data_outer === undefined || this.state.gb_data_outer === null) {
+
+      if (this.state.visibleBar) {
         if (data_results.sequence.filename) {
           this.setState({filename_outer: data_results.sequence.filename});
         }
         this.setState({ gb_data_outer: data_results, isLoading: false });
+        if(this.state.gb_data_inner != undefined && this.state.gb_data_inner != null) {
+          for (let feature of this.state.gb_data_outer.sequence.features) {
+            feature.inOther = false
+            for (let value of this.state.gb_data_inner.sequence.features) {
+              let val = true
+
+              if (value.sequence.length === feature.sequence.length) {
+                breakpoint: for (let i = 0; i < value.sequence.length; i++) {
+                  if (value.sequence[i] != feature.sequence[i]) {
+
+                    val = false
+                    break breakpoint
+                  }
+                }
+
+              } else {
+                val = false;
+              }
+              if (feature.inOther != true) {
+                feature.inOther = val;
+              }
+              if (value.inOther != true) {
+                value.inOther = val;
+              }
+
+            }
+          }
+        }
       } 
       else {
         if (data_results.sequence.filename) {
           this.setState({filename_inner: data_results.sequence.filename});
         }
         this.setState({ gb_data_inner: data_results, isLoading: false });
-        for( let feature of this.state.gb_data_outer.sequence.features){
-              feature.inOther = false
-              for (let value of this.state.gb_data_inner.sequence.features) {
-                let val = true
+        if(this.state.gb_data_outer != undefined && this.state.gb_data_outer != null) {
 
-                if (value.sequence.length === feature.sequence.length) {
-                  breakpoint: for (let i=0; i < value.sequence.length; i++){
-                    if(value.sequence[i]!=feature.sequence[i]){
+          for (let feature of this.state.gb_data_outer.sequence.features) {
+            feature.inOther = false
+            for (let value of this.state.gb_data_inner.sequence.features) {
+              let val = true
 
-                      val = false
-                      break breakpoint
-                    }
+              if (value.sequence.length === feature.sequence.length) {
+                breakpoint: for (let i = 0; i < value.sequence.length; i++) {
+                  if (value.sequence[i] != feature.sequence[i]) {
+
+                    val = false
+                    break breakpoint
                   }
-
-                }else{
-                  val = false;
-                }
-                if(feature.inOther!=true) {
-                  feature.inOther = val;
-                }
-                if(value.inOther!=true) {
-                  value.inOther = val;
                 }
 
+              } else {
+                val = false;
               }
+              if (feature.inOther != true) {
+                feature.inOther = val;
+              }
+              if (value.inOther != true) {
+                value.inOther = val;
+              }
+
             }
+          }
+        }
 
       }
     }.bind(this))
@@ -129,13 +160,12 @@ class App extends Component {
             <span className="App-cell App-upload-button">Upload</span>
             <input id="file_upload" type="file" onChange={this.fetch_data} required />
           </label>
-          <DropdownMenu fetch_preset_function={this.fetch_preset_data} presets={this.state.presets} />
         </div>
         <div className="leftPanel" style={this.state.visibleBar ? {display:'block'} : {display: 'none'}}>
-          <SidePanel isLoading={ this.state.isLoading } filename={ this.state.filename_outer } gb_data={ this.state.gb_data_outer } toggleSwitch={this.state.toggleVisibleSidebar}/>
+          <SidePanel side = "Left" isLoading={ this.state.isLoading } filename={ this.state.filename_outer } gb_data={ this.state.gb_data_outer } toggleSwitch={this.state.toggleVisibleSidebar}/>
         </div>
         <div className="rightPanel" style={!this.state.visibleBar ? {display:'block'} : {display: 'none'}}>
-          <SidePanel isLoading={ this.state.isLoading } filename={ this.state.filename_inner } gb_data={ this.state.gb_data_inner } toggleSwitch={this.state.toggleVisibleSidebar}/>
+          <SidePanel side = "Right" isLoading={ this.state.isLoading } filename={ this.state.filename_inner } gb_data={ this.state.gb_data_inner } toggleSwitch={this.state.toggleVisibleSidebar}/>
         </div>
         <div className="left">
           <Chart data={this.state.gb_data_outer}/>

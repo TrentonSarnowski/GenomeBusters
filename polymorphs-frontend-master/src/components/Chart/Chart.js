@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './Chart.css';
 
 class Chart extends Component {
+	//noinspection JSAnnotator
 	propTypes: {
 		data: React.PropTypes.array,
 		domain: React.PropTypes.object

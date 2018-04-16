@@ -119,11 +119,7 @@ class d3Chart {
       .style("fill", function(d) {
         //return //setColor(d.data.inOther,true)
           if(d.data.inOther!=undefined) {
-              //console.log(((d.index % 13) + d.data.inOther * 13))
-              console.log("fill")
-              console.log(d.data.inOther)
-              console.log(((d.index % 13) + (d.data.inOther * 13)))
-              console.log(color(((d.index % 13) + (d.data.inOther * 13))))
+
               let blah = ((d.index % 13) + (d.data.inOther * 13));
               return color(blah);
           }else{
@@ -200,10 +196,6 @@ class d3Chart {
       .style("fill", function(d) {
 
               if (d.data.inOther != undefined) {
-                  console.log("path")
-                  console.log(d.data.inOther)
-                  console.log(((d.index % 13) + (d.data.inOther * 13)))
-                  console.log(color(((d.index % 13) + (d.data.inOther * 13))))
                   let blah = ((d.index % 13) + (d.data.inOther * 13));
                   return color(blah);
               } else {
